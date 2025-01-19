@@ -5,13 +5,13 @@ var r_leg2 = 0.0
 var r_leg3 = 0.0
 var r_leg4 = 0.0
 
-@onready var agent_body: Node3D = $"../AgentBody"
-@onready var leg1: Node3D = $"../AgentLeg1"
-@onready var leg2: Node3D = $"../AgentLeg2"
-@onready var leg3: Node3D = $"../AgentLeg3"
-@onready var leg4: Node3D = $"../AgentLeg4"
+@onready var agent_body: Node3D = $"../Agent/AgentBody"
+@onready var leg1: Node3D = $"../Agent/AgentBody/LegJoint1/AgentLeg"
+@onready var leg2: Node3D = $"../Agent/AgentBody/LegJoint2/AgentLeg"
+@onready var leg3: Node3D = $"../Agent/AgentBody/LegJoint3/AgentLeg"
+@onready var leg4: Node3D = $"../Agent/AgentBody/LegJoint4/AgentLeg"
 
-@onready var target: Area3D = $"../../Target"
+@onready var target: Area3D = $"../Target"
 
 func get_obs() -> Dictionary:
 	

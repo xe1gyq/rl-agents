@@ -1,13 +1,13 @@
 extends Node3D
 
-@onready var ai_controller: Node3D = $AIController3D
+@onready var ai_controller: Node3D = $"../AIController3D"
 
 @onready var agent_root: Node3D = $"."
 @onready var agent_body: RigidBody3D = $AgentBody
-@onready var agent_leg1: RigidBody3D = $AgentLeg1
-@onready var agent_leg2: RigidBody3D = $AgentLeg2
-@onready var agent_leg3: RigidBody3D = $AgentLeg3
-@onready var agent_leg4: RigidBody3D = $AgentLeg4
+@onready var agent_leg1: RigidBody3D = $AgentBody/LegJoint1/AgentLeg
+@onready var agent_leg2: RigidBody3D = $AgentBody/LegJoint2/AgentLeg
+@onready var agent_leg3: RigidBody3D = $AgentBody/LegJoint3/AgentLeg
+@onready var agent_leg4: RigidBody3D = $AgentBody/LegJoint4/AgentLeg
 
 @onready var agent_body_parts = [
 	agent_body,
@@ -27,14 +27,15 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	pass
-	#if Input.is_action_just_pressed("manual_reset"):
-	#	reset_sim()
+	if Input.is_action_just_pressed("manual_reset"):
+		reset_sim()
 
 func _physics_process(_delta: float) -> void:
-	agent_leg1.apply_torque_impulse(Vector3(0, 0, ai_controller.r_leg1))
-	agent_leg2.apply_torque_impulse(Vector3(0, 0, ai_controller.r_leg2))
-	agent_leg3.apply_torque_impulse(Vector3(0, 0, ai_controller.r_leg3))
-	agent_leg4.apply_torque_impulse(Vector3(0, 0, ai_controller.r_leg4))
+	const friction = 0.5
+	agent_leg1.apply_torque_impulse(Vector3(0, 0, ai_controller.r_leg1*friction))
+	agent_leg2.apply_torque_impulse(Vector3(0, 0, ai_controller.r_leg2*friction))
+	agent_leg3.apply_torque_impulse(Vector3(0, 0, ai_controller.r_leg3*friction))
+	agent_leg4.apply_torque_impulse(Vector3(0, 0, ai_controller.r_leg4*friction))
 
 
 func _on_target_body_entered(body: Node3D) -> void:
@@ -48,12 +49,11 @@ func _on_target_body_entered(body: Node3D) -> void:
 func _on_wall_body_entered(_body: Node3D) -> void:
 	reset_sim()
 	ai_controller.reward -= 1.0
-	
+
 func _on_floor_area_body_entered(body: Node3D) -> void:
 	if body.name == agent_body.name:
 		reset_sim()
 		ai_controller.reward -= 1.0
-		
 
 func reset_sim() -> void:
 	reset_rigid_bodies()

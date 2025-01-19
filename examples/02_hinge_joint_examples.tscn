@@ -1,16 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4t15ohthrrky"]
+[gd_scene load_steps=12 format=3 uid="uid://bx43pxsgu8vg8"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_up026"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xpqwb"]
 size = Vector3(1, 0.3, 0.5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r4oia"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kuj14"]
 emission_enabled = true
 emission = Color(0.952478, 0.357329, 0.0230042, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_8nmv6"]
-material = SubResource("StandardMaterial3D_r4oia")
+material = SubResource("StandardMaterial3D_kuj14")
 size = Vector3(1, 0.3, 0.5)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xae54"]
@@ -18,12 +18,12 @@ size = Vector3(1, 0.3, 0.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_wjw3t"]
 size = Vector3(0.1, 0.5, 0.1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ynwe"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ckkp"]
 emission_enabled = true
 emission = Color(0, 1, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_gg0gt"]
-material = SubResource("StandardMaterial3D_6ynwe")
+material = SubResource("StandardMaterial3D_1ckkp")
 size = Vector3(0.1, 0.5, 0.1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ntxm"]
@@ -45,6 +45,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 
 [node name="AgentBody" type="RigidBody3D" parent="Agent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45043, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
 mass = 5.0
 physics_material_override = SubResource("PhysicsMaterial_up026")
 
@@ -56,101 +59,96 @@ mesh = SubResource("BoxMesh_8nmv6")
 skeleton = NodePath("")
 
 [node name="LegJoint1" type="HingeJoint3D" parent="Agent/AgentBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.373, 0.028, 0.288)
-node_a = NodePath("AgentLeg1")
+transform = Transform3D(0.627963, -0.778243, 0, 0.778243, 0.627963, 0, 0, 0, 1, 0.438235, 0.0282433, 0.288212)
+node_a = NodePath("AgentLeg")
 node_b = NodePath("..")
 angular_limit/enable = true
-angular_limit/upper = 0.785398
-angular_limit/lower = -0.785398
+angular_limit/upper = 0.698132
+angular_limit/lower = -1.91986
 motor/target_velocity = 0.333358
 motor/max_impulse = 0.01
 metadata/_edit_group_ = true
 
-[node name="AgentLeg1" type="RigidBody3D" parent="Agent/AgentBody/LegJoint1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.223, 0.1)
+[node name="AgentLeg" type="RigidBody3D" parent="Agent/AgentBody/LegJoint1"]
+transform = Transform3D(-0.991727, -0.128363, 0, 0.128363, -0.991727, 0, 0, 0, 1, -0.0361689, -0.227695, 0.0910383)
 physics_material_override = SubResource("PhysicsMaterial_xae54")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Agent/AgentBody/LegJoint1/AgentLeg1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Agent/AgentBody/LegJoint1/AgentLeg"]
 shape = SubResource("BoxShape3D_wjw3t")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Agent/AgentBody/LegJoint1/AgentLeg1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Agent/AgentBody/LegJoint1/AgentLeg"]
 mesh = SubResource("BoxMesh_gg0gt")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="LegJoint2" type="HingeJoint3D" parent="Agent/AgentBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.376969, 0.0282433, 0.288212)
-node_a = NodePath("AgentLeg1")
+transform = Transform3D(0.627963, -0.778243, 0, 0.778243, 0.627963, 0, 0, 0, 1, -0.456624, 0.0282433, 0.288212)
+node_a = NodePath("AgentLeg")
 node_b = NodePath("..")
 angular_limit/enable = true
-angular_limit/upper = 0.785398
-angular_limit/lower = -0.785398
+angular_limit/upper = 2.01935
+angular_limit/lower = -0.561996
 motor/target_velocity = 0.333358
 motor/max_impulse = 0.01
 metadata/_edit_group_ = true
 
-[node name="AgentLeg1" type="RigidBody3D" parent="Agent/AgentBody/LegJoint2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.223, 0.1)
+[node name="AgentLeg" type="RigidBody3D" parent="Agent/AgentBody/LegJoint2"]
+transform = Transform3D(-0.0241529, -0.999708, 0, 0.999708, -0.0241529, 0, 0, 0, 1, -0.223963, -0.0230312, 0.0910383)
 physics_material_override = SubResource("PhysicsMaterial_xae54")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Agent/AgentBody/LegJoint2/AgentLeg1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Agent/AgentBody/LegJoint2/AgentLeg"]
 shape = SubResource("BoxShape3D_wjw3t")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Agent/AgentBody/LegJoint2/AgentLeg1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Agent/AgentBody/LegJoint2/AgentLeg"]
 mesh = SubResource("BoxMesh_gg0gt")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="LegJoint3" type="HingeJoint3D" parent="Agent/AgentBody"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.373231, 0.028, -0.288)
-node_a = NodePath("AgentLeg1")
+transform = Transform3D(-0.627963, 0.778243, -8.74228e-08, 0.778243, 0.627963, 0, 5.48983e-08, -6.80362e-08, -1, -0.456624, 0.0282433, -0.299724)
+node_a = NodePath("AgentLeg")
 node_b = NodePath("..")
 angular_limit/enable = true
-angular_limit/upper = 0.785398
-angular_limit/lower = -0.785398
+angular_limit/upper = 0.319395
+angular_limit/lower = -1.4399
 motor/target_velocity = 0.333358
 motor/max_impulse = 0.01
 metadata/_edit_group_ = true
 
-[node name="AgentLeg1" type="RigidBody3D" parent="Agent/AgentBody/LegJoint3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.223, 0.1)
+[node name="AgentLeg" type="RigidBody3D" parent="Agent/AgentBody/LegJoint3"]
+transform = Transform3D(-0.989525, -0.144356, -3.55271e-15, 0.144356, -0.989525, 0, 0, -3.55271e-15, 1, -0.0636368, -0.221726, 0.0910384)
 physics_material_override = SubResource("PhysicsMaterial_xae54")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Agent/AgentBody/LegJoint3/AgentLeg1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Agent/AgentBody/LegJoint3/AgentLeg"]
 shape = SubResource("BoxShape3D_wjw3t")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Agent/AgentBody/LegJoint3/AgentLeg1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Agent/AgentBody/LegJoint3/AgentLeg"]
 mesh = SubResource("BoxMesh_gg0gt")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="LegJoint4" type="HingeJoint3D" parent="Agent/AgentBody"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.377, 0.028, -0.288)
-node_a = NodePath("AgentLeg1")
+transform = Transform3D(-0.627963, 0.778243, -8.74228e-08, 0.778243, 0.627963, 0, 5.48983e-08, -6.80362e-08, -1, 0.3733, 0.0282433, -0.299724)
+node_a = NodePath("AgentLeg")
 node_b = NodePath("..")
 angular_limit/enable = true
-angular_limit/upper = 0.785398
-angular_limit/lower = -0.785398
+angular_limit/upper = 1.85354
+angular_limit/lower = -0.637045
 motor/target_velocity = 0.333358
 motor/max_impulse = 0.01
 metadata/_edit_group_ = true
 
-[node name="AgentLeg1" type="RigidBody3D" parent="Agent/AgentBody/LegJoint4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.223, 0.1)
+[node name="AgentLeg" type="RigidBody3D" parent="Agent/AgentBody/LegJoint4"]
+transform = Transform3D(-0.189096, 0.981958, -1.42109e-14, -0.981958, -0.189096, -7.10543e-15, -1.77636e-14, -1.42109e-14, 1, -0.215339, 0.0152826, 0.0910383)
 physics_material_override = SubResource("PhysicsMaterial_xae54")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Agent/AgentBody/LegJoint4/AgentLeg1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Agent/AgentBody/LegJoint4/AgentLeg"]
 shape = SubResource("BoxShape3D_wjw3t")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Agent/AgentBody/LegJoint4/AgentLeg1"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Agent/AgentBody/LegJoint4/AgentLeg"]
 mesh = SubResource("BoxMesh_gg0gt")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_gwawd")
 metadata/_edit_lock_ = true
-
-[node name="FloorArea" type="Area3D" parent="Floor"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/FloorArea"]
-shape = SubResource("ConcavePolygonShape3D_1vl62")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 
@@ -162,5 +160,3 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 11.
 light_energy = 0.238
 light_bake_mode = 0
 metadata/_edit_lock_ = true
-
-[connection signal="body_entered" from="Floor/FloorArea" to="Agent" method="_on_floor_area_body_entered"]
